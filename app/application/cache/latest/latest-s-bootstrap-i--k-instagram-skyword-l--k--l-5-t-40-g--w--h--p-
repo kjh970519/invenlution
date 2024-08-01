@@ -1,0 +1,39 @@
+a:3:{s:4:"time";i:1722407109;s:3:"ttl";i:1;s:4:"data";s:999:"<div class="col-md-6">
+	<div class="panel panel-default">
+	<!-- Default panel contents -->
+		<div class="panel-heading">
+			#키워드			<div class="view-all pull-right">
+				<a href="http://localhost:8888/invenlution/app/board/instagram-skyword" title="#키워드">더보기 <i class="fa fa-angle-right"></i></a>
+			</div>
+		</div>
+
+		<!-- Table -->
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tbody>
+									<tr>
+						<td>게시물이 없습니다</td>
+						<td class="px80"></td>
+					</tr>
+									<tr>
+						<td>게시물이 없습니다</td>
+						<td class="px80"></td>
+					</tr>
+									<tr>
+						<td>게시물이 없습니다</td>
+						<td class="px80"></td>
+					</tr>
+									<tr>
+						<td>게시물이 없습니다</td>
+						<td class="px80"></td>
+					</tr>
+									<tr>
+						<td>게시물이 없습니다</td>
+						<td class="px80"></td>
+					</tr>
+								</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+";}

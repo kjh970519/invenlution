@@ -1,0 +1,17 @@
+  version: '3.8'
+
+  services:
+    app-service:
+      build:
+        context: ../app
+        dockerfile: ../docker/app/Dockerfile
+      image: invenlution-app-image
+      ports:
+        - "8080:80"
+      container_name: invenlution-app-container
+      networks:
+        - app-network
+
+  networks:
+    app-network:
+      driver: bridge
