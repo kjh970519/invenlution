@@ -89,7 +89,7 @@ class Member_model extends CB_Model
 	}
 
 
-	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
+	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR', $select = '', $group_by = '')
 	{
 		$join = array();
 		if (isset($where['mgr_id'])) {

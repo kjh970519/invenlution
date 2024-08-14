@@ -1540,3 +1540,17 @@ if ( ! function_exists('check_cache_dir')) {
 		return true;
 	}
 }
+
+function xmp($vars) {
+    echo "<xmp style='background-color: #6BB6BB'>";
+    print_r($vars);
+    echo "</xmp>";
+}
+
+function get_uuid() {
+    $data = random_bytes(16);
+    $data[6] = chr((ord($data[6]) & 0x0f) | 0x40); // 버전 4
+    $data[8] = chr((ord($data[8]) & 0x3f) | 0x80); // variant
+
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}

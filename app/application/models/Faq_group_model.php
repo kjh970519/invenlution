@@ -54,7 +54,7 @@ class Faq_group_model extends CB_Model
 	}
 
 
-	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
+	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR', $select = '', $group_by = '')
 	{
 		$select = 'faq_group.*, member.mem_id, member.mem_userid, member.mem_nickname, member.mem_is_admin, member.mem_icon';
 		$join[] = array('table' => 'member', 'on' => 'faq_group.mem_id = member.mem_id', 'type' => 'left');

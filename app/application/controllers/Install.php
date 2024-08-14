@@ -3771,8 +3771,40 @@ class Install extends CI_Controller
 
 
         // naver_review table
+        // naver_brand
+        $this->dbforge->add_field(array(
+            'channel_no' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'brand_cd' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'brand_nm' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'shop_type' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '20',
+            ),
+            'created_at' => array(
+                'type' => 'DATETIME',
+                'null' => true,
+            ),
+        ));
+        $this->dbforge->add_key('channel_no', true);
+        if ($this->dbforge->create_table('naver_brand', true) === false) {
+            return false;
+        }
+
         // naver_goods
         $this->dbforge->add_field(array(
+            'channel_no' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
             'brand_cd' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100',
@@ -3797,6 +3829,11 @@ class Install extends CI_Controller
                 'type' => 'VARCHAR',
                 'constraint' => '200',
                 'default' => '',
+            ),
+            'evaluations' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1000',
+                'default' => null,
             ),
             'db_review_cnt' => array(
                 'type' => 'INT',
@@ -3824,9 +3861,87 @@ class Install extends CI_Controller
                      MODIFY updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
         $this->db->query($sql);
 
+        $sql = "CREATE INDEX cb_naver_goods_product_no_index
+                          ON cb_naver_goods (product_no)";
+        $this->db->query($sql);
+
 
         // naver_review
+        $this->dbforge->add_field(array(
+            'review_id' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'product_no' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'review_score' => array(
+                'type' => 'FLOAT',
+                'default' => '0',
+            ),
+            'help_cnt' => array(
+                'type' => 'INT',
+                'default' => '0',
+            ),
+            'review_type' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'review_content_type' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '5',
+            ),
+            'review_imgs' => array(
+                'type' => 'TEXT',
+                'default' => '',
+                'null' => true,
+            ),
+            'option_nm' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'default' => null,
+            ),
+            'review_text' => array(
+                'type' => 'MEDIUMTEXT',
+                'default' => 0,
+            ),
+            'review_evaluations' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '2000',
+                'null' => true,
+            ),
+            'writer_id' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'writer_profile_img' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1000',
+                'null' => true,
+            ),
+            'created_at' => array(
+                'type' => 'DATETIME',
+                'null' => true,
+            ),
+            'saved_at' => array(
+                'type' => 'DATETIME',
+                'null' => true,
+            ),
+            'use_yn' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 'Y',
+            ),
+        ));
+        $this->dbforge->add_key('review_id', true);
+        if ($this->dbforge->create_table('naver_review', true) === false) {
+            return false;
+        }
 
+        $sql = "CREATE INDEX cb_naver_review_product_no_index
+                          ON cb_naver_review (product_no)";
+        $this->db->query($sql);
 
 		return true;
 	}

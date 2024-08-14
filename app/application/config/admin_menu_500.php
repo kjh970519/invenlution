@@ -15,7 +15,7 @@ $config['admin_page_menu']['additional'] =
 	array(
 		'__config'					=> array('추가설정', 'fa-gears'),
 		'menu'						=> array(
-			'naverreview'			=> array('네이버 리뷰', ''),
+			'naver_review'			=> array('네이버 리뷰', ''),
 			'instagram'			=> array('인스타그램', ''),
 		),
 	);

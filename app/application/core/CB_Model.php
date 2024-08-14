@@ -101,27 +101,32 @@ class CB_Model extends CI_Model
 	}
 
 
-	public function get_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
+	public function get_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR', $select = '', $group_by = '')
 	{
-		$result = $this->_get_list_common($select = '', $join = '', $limit, $offset, $where, $like, $findex, $forder, $sfield, $skeyword, $sop);
+		$result = $this->_get_list_common($select, $join = '', $limit, $offset, $where, $like, $findex, $forder, $sfield, $skeyword, $sop, $group_by);
 		return $result;
 	}
 
 
-	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
+	public function get_admin_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR', $select = '', $group_by = '')
 	{
-		$result = $this->_get_list_common($select = '', $join = '', $limit, $offset, $where, $like, $findex, $forder, $sfield, $skeyword, $sop);
+		$result = $this->_get_list_common($select, $join = '', $limit, $offset, $where, $like, $findex, $forder, $sfield, $skeyword, $sop, $group_by);
 		return $result;
 	}
 
 
-	public function _get_list_common($select = '', $join = '', $limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
+	public function _get_list_common($select = '', $join = '', $limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR', $group_by = '')
 	{
-		if (empty($findex) OR ! in_array($findex, $this->allow_order_field)) {
-			$findex = $this->primary_key;
-		}
+        if (!is_array($findex)) {
+            if (empty($findex) OR ! in_array($findex, $this->allow_order_field)) {
+                $findex = $this->primary_key;
+            }
+        }
 
-		$forder = (strtoupper($forder) === 'ASC') ? 'ASC' : 'DESC';
+        if (!is_array($forder)) {
+            $forder = (strtoupper($forder) === 'ASC') ? 'ASC' : 'DESC';
+        }
+
 		$sop = (strtoupper($sop) === 'AND') ? 'AND' : 'OR';
 
 		$count_by_where = array();
@@ -219,14 +224,30 @@ class CB_Model extends CI_Model
 			$this->db->where($count_by_where);
 		}
 
-		$this->db->order_by($findex, $forder);
+        if ($group_by) {
+            $this->db->group_by($group_by);
+        }
+
+        if (is_array($findex)) {
+            foreach ($findex AS $k => $v) {
+                $this->db->order_by($v, $forder[$k]);
+            }
+        }
+        else {
+            $this->db->order_by($findex, $forder);
+        }
 		if ($limit) {
 			$this->db->limit($limit, $offset);
 		}
 		$qry = $this->db->get();
 		$result['list'] = $qry->result_array();
 
-		$this->db->select('count(*) as rownum');
+        if ($group_by) {
+            $this->db->select('count(distinct brand_cd) as rownum');
+        }
+        else {
+            $this->db->select('count(*) as rownum');
+        }
 		$this->db->from($this->_table);
 		if ( ! empty($join['table']) && ! empty($join['on'])) {
 			if (empty($join['type'])) {
