@@ -341,5 +341,22 @@ var naver_review = {
                 $(".loading-area").hide();
             }
         });
+    },
+    update_show: function(obj, type, idx) {
+        var data = new Object();
+        data = {
+            is_checked: (obj.prop("checked")? 1:0),
+            type: type,
+            idx: idx,
+        };
+        $.ajax({
+            url: `${naver_review.base_url}updateShow`,
+            method: "POST",
+            dataType: "json",
+            data: {
+                data: data
+            },
+            success: function(obj) {}
+        });
     }
 }

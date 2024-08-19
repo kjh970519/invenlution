@@ -154,7 +154,7 @@ $(document).ready(function() {
 	$(function() {
 		$('#fsearch').validate({
 			rules: {
-				skeyword: { required:true, minlength:2}
+				skeyword: { required:true, minlength:1}
 			}
 		});
 	});

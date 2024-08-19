@@ -56,7 +56,9 @@
                             <td><?=$v['naver_goods_nm']?></td>
                             <td><?=$v['created_at']?></td>
                             <td><?=number_format($v['naver_review_cnt'])?>건</td>
-                            <td><?=number_format($v['db_review_cnt'])?>건</td>
+                            <td>
+                                <a href="<?=admin_url($this->pagedir)?>/review_list?sfield=product_no&skeyword=<?=$v['product_no']?>"><?=number_format($v['db_review_cnt'])?>건</a>
+                            </td>
                             <td><?=$v['updated_at']?></td>
                             <td style="text-align: center;">
                                 <button type="button" class="btn btn-default btn-sm btn-refresh-review" data-brand-cd="<?=$v['brand_cd']?>" data-product-no="<?=$v['product_no']?>" data-shop-type="<?=$v['shop_type']?>">갱신</button>

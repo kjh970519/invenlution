@@ -8,13 +8,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author CIBoard (develop@ciboard.co.kr)
  */
-class Naver_review_model extends CB_Model
+class Naver_goods_model extends CB_Model
 {
 
     /**
      * 테이블명
      */
-    public $_table = 'naver_review';
+    public $_table = 'naver_goods';
 
     /**
      * 사용되는 테이블의 프라이머리키

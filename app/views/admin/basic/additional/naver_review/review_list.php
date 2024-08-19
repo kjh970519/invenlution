@@ -14,7 +14,8 @@
             ?>
 
             <div class="btn-group pull-right" role="group" aria-label="...">
-                <button type="button" class="btn btn-default btn-sm btn-reg-brand">브랜드 등록</button>
+<!--                <button type="button" class="btn btn-default btn-sm btn-single-product">단일 상품 등록</button>-->
+<!--                <button type="button" class="btn btn-default btn-sm btn-refresh-review" data-brand-cd="--><?php //=$_GET['skeyword']?><!--">전체 리뷰 갱신</button>-->
                 <a href="<?=$view['listall_url']?>" class="btn btn-outline btn-default btn-sm">전체목록</a>
             </div>
             <?php
@@ -27,13 +28,15 @@
             <table class="table table-hover table-striped table-bordered" style="font-family: Helvetica, '나눔고딕', 'Nanum Gothic', '나눔스퀘어', 'Nanum Square', 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', Dotum, '돋움', sans-serif; font-size: 12px; line-height: 1.5em;">
                 <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>브랜드</th>
-                    <th>브랜드 코드</th>
-                    <th>등록 상품 개수</th>
+                    <th>리뷰ID</th>
+                    <th width="20%">옵션명</th>
+                    <th width="30%">리뷰 내용</th>
+                    <th>평점</th>
+                    <th>추천수</th>
+                    <th>작성자</th>
                     <th>등록일시</th>
-                    <th>상품갱신</th>
-                    <th></th>
+                    <th>저장일시</th>
+                    <th>노출여부</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,20 +44,18 @@
                 if ($view['data']['list']) {
                     foreach ($view['data']['list'] as $k => $v) {
                 ?>
-                        <tr>
-                            <td><?=number_format($k+1)?></td>
-                            <td>
-                                <?=$v['brand_nm']?>
-                            </td>
-                            <td>
-                                <a href="<?="https://{$v['shop_type']}.naver.com/{$v['brand_cd']}"?>" target="_blank"><?=$v['brand_cd']?></a>
-                            </td>
-                            <td><a href="<?=current_url()?>/goods_list?sfield=brand_cd&skeyword=<?=$v['brand_cd']?>"><?=number_format($v['goods_cnt'])?>개</a></td>
+                        <tr <?=($v['naver_review_cnt'] != $v['db_review_cnt'])? "style='background: #E9EC69;'" : ""?>>
+                            <td><?=$v['review_id']?></td>
+                            <td><?=$v['option_nm']?></td>
+                            <td><?=$v['review_text']?></td>
+                            <td><?=$v['review_score']?></td>
+                            <td><?=number_format($v['help_cnt'])?>건</td>
+                            <td><?=$v['writer_id']?></td>
                             <td><?=$v['created_at']?></td>
+                            <td><?=$v['saved_at']?></td>
                             <td style="text-align: center;">
-                                <button type="button" class="btn btn-default btn-sm" onclick="javascript: naver_review.get_naver_goods_all_url('<?="https://{$v['shop_type']}.naver.com/{$v['brand_cd']}"?>');">갱신</button>
+                                <input type="checkbox" <?=($v['use_yn'] == 'Y')? 'checked':''?> onclick="javascript: naver_review.update_show($(this), 'review', '<?=$v['review_id']?>')">
                             </td>
-                            <td></td>
                         </tr>
                 <?
                     }
@@ -97,5 +98,7 @@
     <input type="hidden" id="base_url" value="<?=base_url()?>">
 </div>
 
-<div id="naver_goods_form" style="display: none;"></div>
+<div id="naver_goods_form" style="display: none;">
+
+</div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/additional/naver_review/index.js'); ?>"></script>
