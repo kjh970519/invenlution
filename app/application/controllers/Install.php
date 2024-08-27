@@ -3793,6 +3793,11 @@ class Install extends CI_Controller
                 'type' => 'DATETIME',
                 'null' => true,
             ),
+            'use_yn' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 'Y',
+            ),
         ));
         $this->dbforge->add_key('channel_no', true);
         if ($this->dbforge->create_table('naver_brand', true) === false) {
@@ -3850,6 +3855,11 @@ class Install extends CI_Controller
             'created_at' => array(
                 'type' => 'DATETIME',
                 'null' => true,
+            ),
+            'use_yn' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 'Y',
             ),
         ));
         $this->dbforge->add_key('naver_goods_idx', true);

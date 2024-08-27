@@ -81,9 +81,11 @@ $query_builder = TRUE;
  * 'dsn'	=> 'mysql:host=localhost;dbname=yourdatabasenamehere',
  * 위 부분에서 yourdatabasenamehere 이 부분을 실제 디비명으로 변경해주세요
 */
+$hostname = 'localhost';
+if ($_SERVER['SERVER_PORT'] == '8080') $hostname = 'host.docker.internal';
 $db['default'] = array(
 	//'dsn'	=> 'mysql:host=localhost;dbname=yourdatabasenamehere',
-	'hostname' => 'localhost',
+	'hostname' => $hostname,
 	'username' => 'root',
 	'password' => '',
 	'database' => 'invenlution',

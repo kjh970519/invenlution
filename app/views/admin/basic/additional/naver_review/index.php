@@ -33,7 +33,7 @@
                     <th>등록 상품 개수</th>
                     <th>등록일시</th>
                     <th>상품갱신</th>
-                    <th></th>
+                    <th>노출여부</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,7 +54,9 @@
                             <td style="text-align: center;">
                                 <button type="button" class="btn btn-default btn-sm" onclick="javascript: naver_review.get_naver_goods_all_url('<?="https://{$v['shop_type']}.naver.com/{$v['brand_cd']}"?>');">갱신</button>
                             </td>
-                            <td></td>
+                            <td style="text-align: center;">
+                                <input type="checkbox" <?=($v['use_yn'] == 'Y')? 'checked':''?> onclick="javascript: naver_review.update_show($(this), 'brand', '<?=$v['brand_cd']?>')">
+                            </td>
                         </tr>
                 <?
                     }

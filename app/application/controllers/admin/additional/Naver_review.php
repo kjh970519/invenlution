@@ -740,7 +740,7 @@ class Naver_review extends CB_Controller
 
         switch ($data['type']) {
             case "brand":
-                $this->db->set('use_yn', ($data['is_checked'])? 'Y':'N')->where('brand', $data['idx'])->update('cb_naver_brand');
+                $this->db->set('use_yn', ($data['is_checked'])? 'Y':'N')->where('brand_cd', $data['idx'])->update('cb_naver_brand');
             break;
 
             case "goods":

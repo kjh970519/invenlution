@@ -37,7 +37,7 @@
                     <th>DB 리뷰 수</th>
                     <th>리뷰 업데이트 일시</th>
                     <th>최신 리뷰 업데이트</th>
-                    <th></th>
+                    <th>노출여부</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,9 @@
                             <td style="text-align: center;">
                                 <button type="button" class="btn btn-default btn-sm btn-refresh-review" data-brand-cd="<?=$v['brand_cd']?>" data-product-no="<?=$v['product_no']?>" data-shop-type="<?=$v['shop_type']?>">갱신</button>
                             </td>
-                            <td></td>
+                            <td style="text-align: center;">
+                                <input type="checkbox" <?=($v['use_yn'] == 'Y')? 'checked':''?> onclick="javascript: naver_review.update_show($(this), 'goods', '<?=$v['product_no']?>')">
+                            </td>
                         </tr>
                 <?
                     }
